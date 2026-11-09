@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="青苔 QingTai：二十二种声音的助眠播放器。隐私政策与使用支持。">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#14312E">
+<title>青苔 QingTai · 隐私与支持</title>
+<link rel="icon" href="./favicon.png" type="image/png">
+<style>
+  :root{
+    --paper:#F2EDE3; --ink:#1C1A17; --ink2:#4A4642;
+    --rule:#D8D0C2; --moss:#14312E; --lead:#EAE3D6; --card:#EAE3D6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#10201E; --ink:#EFEAE1; --ink2:#B8B2A6;
+      --rule:#2B3A37; --moss:#BFA07A; --lead:#182926; --card:#182926;
+    }
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:light dark}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.85; font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px; margin:0 auto; padding:56px 24px 96px}
+  header{border-bottom:1px solid var(--rule); padding-bottom:28px; margin-bottom:36px}
+  h1{
+    font-family:"Songti SC","Songti TC",serif;
+    font-size:34px; font-weight:400; letter-spacing:.06em;
+    margin:0 0 10px; color:var(--moss);
+  }
+  .meta{font-size:13px; color:var(--ink2)}
+  .lead{
+    font-size:17px; padding:18px 20px; margin:0 0 32px;
+    background:var(--lead); border-left:3px solid var(--moss);
+  }
+  a{color:var(--moss); text-underline-offset:3px}
+  .cards{display:grid; gap:14px; margin:8px 0 0}
+  .card{
+    display:block; padding:20px 22px; text-decoration:none; color:var(--ink);
+    background:var(--card); border:1px solid var(--rule); border-radius:4px;
+  }
+  .card b{
+    display:block; font-family:"Songti SC","Songti TC",serif;
+    font-size:19px; font-weight:400; letter-spacing:.04em; color:var(--moss);
+    margin-bottom:2px;
+  }
+  .card span{font-size:14px; color:var(--ink2)}
+  .card:hover{border-color:var(--moss)}
+  footer{
+    margin-top:56px; padding-top:24px; border-top:1px solid var(--rule);
+    font-size:13px; color:var(--ink2);
+  }
+  footer nav{margin-bottom:10px; display:flex; flex-wrap:wrap; gap:6px 18px}
+  footer a{color:var(--ink2)}
+  @media (max-width:520px){
+    .wrap{padding:36px 20px 72px}
+    h1{font-size:27px}
+    body{font-size:15px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>青苔 QingTai</h1>
+    <div class="meta">隐私政策与使用支持 · 2026 年 11 月 9 日</div>
+  </header>
+
+  <p class="lead">青苔不收集任何个人信息，也没有服务器。下面两页分别是隐私政策与常见问题，都可以单独分享或直接打开。</p>
+
+  <div class="cards">
+    <a class="card" href="./privacy.html">
+      <b>隐私政策</b>
+      <span>不收集什么、设备上存了什么、第三方与联系方式</span>
+    </a>
+    <a class="card" href="./support.html">
+      <b>支持</b>
+      <span>播放、内容、购买、隐私的常见问题与联系邮箱</span>
+    </a>
+  </div>
+
+  <footer>
+    青苔 QingTai<br>
+    本页与两页正文均为静态页面，不加载任何外部资源、脚本或统计代码。
+    <nav>
+      <a href="./privacy.html">隐私政策</a>
+      <a href="./support.html">支持</a>
+      <a href="./index.html">首页</a>
+    </nav>
+  </footer>
+
+</div>
+</body>
+</html>
