@@ -1,36 +1,742 @@
-<!doctype html>
-<html lang="zh-Hans">
+<!DOCTYPE html>
+<!--
+  Mosolis 推广首页（中英双语单页）
+  部署位置：pubsites/mosolis/index.html，资源在同目录 assets/ 下，全部本地引用。
+  规范：纯黑底、无渐变、无感叹号、不出现铃铛/月亮/星星图标、动画只用 ease-out。
+-->
+<html lang="zh-Hans" data-lang="zh">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Mosolis（晨苔）官方支持与隐私说明。">
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#526e5d">
-  <title>Mosolis · 支持与隐私</title>
-  <link rel="stylesheet" href="./styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mosolis 晨苔 · 安静的自然声闹钟</title>
+<meta name="description" content="Mosolis（晨苔）是一款安静的自然声闹钟：明早几点一眼看清，八条自然声景离线可响，倒计时一点开始。免费七天，之后一次买断，不订阅。">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Mosolis 晨苔 · 安静的自然声闹钟">
+<meta property="og:description" content="明早几点一眼看清，八条自然声景离线可响。免费七天，之后一次买断，不订阅。">
+<meta property="og:image" content="https://keepallsimple.github.io/pubsites/mosolis/assets/icon.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://keepallsimple.github.io/pubsites/mosolis/">
+  <link rel="canonical" href="https://keepallsimple.github.io/pubsites/mosolis/">
+  <link rel="icon" href="./assets/favicon.png">
+<style>
+  :root {
+    --bg: #000000;
+    --panel: #0B100D;
+    --line: #22302A;
+    --ink: #EADCC6;
+    --sub: #9AA79C;
+    --gold: #D69A57;
+    --moss: #5C7F4B;
+    --serif: "Iowan Old Style", "Songti SC", "Noto Serif SC", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    --pad: clamp(20px, 5vw, 64px);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  img { display: block; max-width: 100%; }
+
+  .wrap {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 var(--pad);
+  }
+
+  .en { display: none; }
+  html[data-lang="en"] .zh { display: none; }
+  html[data-lang="en"] .en { display: block; }
+  html[data-lang="en"] span.en { display: inline; }
+
+  /* 顶栏 */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 64px;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 var(--pad);
+  }
+
+  .wordmark {
+    font-size: 18px;
+    letter-spacing: 0.16em;
+    color: var(--ink);
+    margin-right: auto;
+  }
+
+  .lang {
+    appearance: none;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--sub);
+    font: inherit;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    padding: 8px 14px;
+    min-height: 40px;
+    cursor: pointer;
+    transition: color 240ms ease-out, border-color 240ms ease-out;
+  }
+
+  .lang:hover, .lang:focus-visible { color: var(--ink); border-color: var(--sub); }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 999px;
+    background: var(--gold);
+    color: #1A1206;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    transition: opacity 240ms ease-out;
+  }
+
+  .pill:hover, .pill:focus-visible { opacity: 0.86; }
+
+  .pill.ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    font-weight: 400;
+  }
+
+  .pill.ghost:hover { border-color: var(--sub); opacity: 1; }
+
+  /* 首屏 */
+  .hero {
+    padding: clamp(56px, 9vw, 112px) 0 clamp(40px, 6vw, 72px);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sub);
+    margin: 0 0 24px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.4vw, 44px);
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+    margin: 0 0 24px;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  .lede {
+    font-size: clamp(16px, 1.6vw, 18px);
+    color: var(--sub);
+    max-width: 34em;
+    margin: 0 0 32px;
+  }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+
+  .meta { font-size: 13px; color: var(--sub); margin: 0; }
+
+  .phone {
+    justify-self: center;
+    width: min(280px, 78vw);
+    border: 1px solid var(--line);
+    border-radius: 34px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .phone img { width: 100%; height: auto; }
+
+  .icon-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .icon-row img {
+    width: 64px;
+    height: 64px;
+    border-radius: 15px;
+  }
+
+  .icon-row .tagline {
+    font-size: 13px;
+    color: var(--sub);
+    letter-spacing: 0.04em;
+  }
+
+  /* 通用段落 */
+  section { border-top: 1px solid var(--line); }
+
+  .section {
+    padding: clamp(48px, 7vw, 88px) 0;
+  }
+
+  .kicker {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sub);
+    margin: 0 0 16px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 400;
+    line-height: 1.3;
+    margin: 0 0 16px;
+  }
+
+  .section p { color: var(--sub); max-width: 38em; text-wrap: pretty; }
+
+  /* 三件事 */
+  .three {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 40px;
+  }
+
+  .three article { background: var(--bg); padding: 28px; }
+
+  .three h3 {
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0 0 10px;
+  }
+
+  .three p { font-size: 15px; margin: 0; }
+
+  .num {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+
+  /* 图片段 */
+  .split {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(28px, 5vw, 72px);
+    align-items: center;
+  }
+
+  .split.reverse { grid-template-columns: 1.1fr 0.9fr; }
+
+  .shot {
+    justify-self: center;
+    width: min(300px, 78vw);
+    border: 1px solid var(--line);
+    border-radius: 34px;
+    overflow: hidden;
+  }
+
+  /* 声景 */
+  .scenes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 36px;
+  }
+
+  .scene {
+    background: var(--bg);
+    padding: 20px 18px;
+  }
+
+  .scene .idx {
+    font-family: var(--serif);
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .scene .name { font-size: 15px; }
+
+  .scene .en-name { display: block; font-size: 12px; color: var(--sub); margin-top: 2px; }
+
+  /* 图集 */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 3vw, 28px);
+    margin-top: 40px;
+  }
+
+  .gallery figure { margin: 0; }
+
+  .gallery figure img {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 28px;
+  }
+
+  .gallery figcaption { font-size: 13px; color: var(--sub); margin-top: 12px; }
+
+  /* 价格 */
+  .price-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 4vw, 56px);
+    align-items: start;
+  }
+
+  .price-box {
+    border: 1px solid var(--line);
+    padding: clamp(24px, 3vw, 36px);
+  }
+
+  .price-box .amount {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 46px);
+    line-height: 1.1;
+    margin: 8px 0 6px;
+  }
+
+  .price-box ul { list-style: none; padding: 0; margin: 20px 0 0; }
+
+  .price-box li {
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+    color: var(--sub);
+  }
+
+  .price-box li:first-child { border-top: 0; }
+
+  /* FAQ */
+  details {
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+  }
+
+  summary {
+    cursor: pointer;
+    font-size: 17px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 32px;
+    align-items: center;
+  }
+
+  summary::-webkit-details-marker { display: none; }
+
+  summary::after {
+    content: "+";
+    color: var(--gold);
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  details[open] summary::after { content: "−"; }
+
+  details p { margin: 14px 0 0; font-size: 15px; }
+
+  /* 页脚 */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 48px 0 56px;
+    font-size: 13px;
+    color: var(--sub);
+  }
+
+  .foot-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 40px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .foot-links { display: flex; flex-wrap: wrap; gap: 20px; }
+
+  .foot-links a { border-bottom: 1px solid transparent; transition: border-color 240ms ease-out; }
+
+  .foot-links a:hover, .foot-links a:focus-visible { border-color: var(--sub); }
+
+  .rule { color: var(--moss); }
+
+  /* 动效：仅 ease-out 淡入，无位移 */
+  .fade { animation: fade 900ms ease-out both; }
+  .fade.d1 { animation-delay: 120ms; }
+  .fade.d2 { animation-delay: 240ms; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .fade { animation: none; }
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid, .split, .split.reverse, .price-grid { grid-template-columns: 1fr; }
+    .split.reverse .shot { order: -1; }
+    .three { grid-template-columns: 1fr; }
+    .scenes { grid-template-columns: repeat(2, 1fr); }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .gallery figure:last-child { display: none; }
+  }
+
+  @media (max-width: 520px) {
+    .scenes { grid-template-columns: 1fr; }
+    .actions .pill { width: 100%; }
+    .nav .pill { display: none; }
+  }
+</style>
 </head>
 <body>
-  <main class="wrap">
-    <header>
-      <p class="brand">Mosolis</p>
-      <h1>晨苔日出闹钟</h1>
-      <p class="meta">官方支持与隐私说明</p>
-    </header>
 
-    <nav class="cards" aria-label="页面">
-      <a class="card" href="./support.html">
-        <strong>使用支持</strong>
-        <span>闹钟、声音、倒计时、试用与恢复购买的常见问题</span>
-      </a>
-      <a class="card" href="./privacy.html">
-        <strong>隐私政策</strong>
-        <span>不收集数据、不追踪；数据保存在设备本地</span>
-      </a>
-    </nav>
+<header>
+  <nav class="nav" aria-label="主导航">
+    <a class="wordmark" href="#top">mosolis</a>
+    <button class="lang" id="langToggle" type="button" aria-pressed="false" aria-label="切换语言 / Switch language">EN</button>
+    <a class="pill" href="https://apps.apple.com/app/id6839210146" target="_blank" rel="noopener">
+      <span class="zh">App Store 下载</span><span class="en">Download</span>
+    </a>
+  </nav>
+</header>
 
-    <footer>
-      <p>Mosolis · 联系 <a href="mailto:truebraveheart@gmail.com">truebraveheart@gmail.com</a></p>
-    </footer>
-  </main>
+<main id="top">
+
+  <!-- 首屏 -->
+  <section class="hero" style="border-top:0">
+    <div class="wrap hero-grid">
+      <div class="fade">
+        <div class="icon-row">
+          <img src="./assets/icon.png" width="64" height="64" alt="Mosolis 图标">
+          <span class="tagline">苔在下面，光在上面</span>
+        </div>
+        <p class="eyebrow">
+          <span class="zh">iOS 26 · 自然声闹钟</span><span class="en">iOS 26 · Nature alarm</span>
+        </p>
+        <h1>
+          <span class="zh">把早上被铃声砸开的那几分钟，换成一段慢慢长起来的声音。</span>
+          <span class="en">Replace the jolt of a buzzer with a sound that grows.</span>
+        </h1>
+        <p class="lede">
+          <span class="zh">明早几点，一眼就知道。八条自然声景打包在 App 内，离线也能响。闹钟交给 iOS，App 关掉也不会漏。没有账号，没有广告，没有睡眠评分。</span>
+          <span class="en">Tomorrow's alarm at a glance. Eight nature recordings bundled inside the app, playing offline. Alarms are handed to iOS, so they ring with the app closed. No account, no ads, no sleep scores.</span>
+        </p>
+        <div class="actions">
+          <a class="pill" href="https://apps.apple.com/app/id6839210146" target="_blank" rel="noopener">
+            <span class="zh">在 App Store 下载</span><span class="en">Download on the App Store</span>
+          </a>
+          <a class="pill ghost" href="#pricing">
+            <span class="zh">免费七天，之后一次买断</span><span class="en">Free for seven days, then once</span>
+          </a>
+        </div>
+        <p class="meta">
+          <span class="zh">iOS 26 及以上 · iPhone 11 及更新机型 · 不订阅</span>
+          <span class="en">iOS 26 or later · iPhone 11 and newer · No subscription</span>
+        </p>
+      </div>
+      <div class="phone fade d1">
+        <img src="./assets/screens/01-home.png" width="1320" height="2868" alt="Mosolis 首页：下一次闹钟与倒计时">
+      </div>
+    </div>
+  </section>
+
+  <!-- 三件事 -->
+  <section>
+    <div class="wrap section">
+      <p class="kicker"><span class="zh">只做三件事</span><span class="en">Three things</span></p>
+      <h2>
+        <span class="zh">更少，但都做到底</span>
+        <span class="en">Less, but finished</span>
+      </h2>
+      <p>
+        <span class="zh">首页只放两件事：下一次闹钟，和一个倒计时。其余闹钟在下一层，不抢注意力。</span>
+        <span class="en">The home screen holds two things: the next alarm and a countdown. Everything else stays one level down.</span>
+      </p>
+
+      <div class="three">
+        <article>
+          <div class="num">01</div>
+          <h3><span class="zh">明早一眼看清</span><span class="en">Tomorrow, at a glance</span></h3>
+          <p>
+            <span class="zh">时间、星期、用的声景，一张卡看完。其余闹钟按真实早晨分组：工作日、周末、只响一次。</span>
+            <span class="en">Time, day and sound on one card. Other alarms follow real mornings: weekdays, weekends, or once.</span>
+          </p>
+        </article>
+        <article>
+          <div class="num">02</div>
+          <h3><span class="zh">用声音叫醒</span><span class="en">Woken by sound</span></h3>
+          <p>
+            <span class="zh">八条自然声景都打包在 App 里，飞行模式也能响。也可以选「无声音」，由系统设置决定是否震动。</span>
+            <span class="en">Eight scenes ship inside the app and play in airplane mode. Choose No sound and let iOS decide about vibration.</span>
+          </p>
+        </article>
+        <article>
+          <div class="num">03</div>
+          <h3><span class="zh">给小事的倒计时</span><span class="en">A timer for small things</span></h3>
+          <p>
+            <span class="zh">泡茶、小睡、专注、敷面膜。常用时长存成一键圆圈，运行时只看一个进度环。</span>
+            <span class="en">Tea, a nap, a focus block. Save the durations you use as one-tap circles and follow a single ring.</span>
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 声景 -->
+  <section>
+    <div class="wrap section split">
+      <div class="shot">
+        <img src="./assets/screens/02-sounds.png" width="1320" height="2868" alt="Mosolis 声音选择页：八条自然声景">
+      </div>
+      <div>
+        <p class="kicker"><span class="zh">声音</span><span class="en">Sound</span></p>
+        <h2>
+          <span class="zh">八条声景，全在包里</span>
+          <span class="en">Eight scenes, all bundled</span>
+        </h2>
+        <p>
+          <span class="zh">不依赖网络，不调用第三方服务。点一下可以试听，离开页面会自动停。</span>
+          <span class="en">No network, no third-party service. Tap to preview; leaving the page stops it.</span>
+        </p>
+        <div class="scenes">
+          <div class="scene"><span class="idx">01</span><span class="name zh">晨曦鸟鸣</span><span class="en-name">Dawn Chorus</span></div>
+          <div class="scene"><span class="idx">02</span><span class="name zh">晨光山谷</span><span class="en-name">Dawn Valley</span></div>
+          <div class="scene"><span class="idx">03</span><span class="name zh">雀鸣湖</span><span class="en-name">Finch Lake</span></div>
+          <div class="scene"><span class="idx">04</span><span class="name zh">冰川湿地</span><span class="en-name">Moraine Wetland</span></div>
+          <div class="scene"><span class="idx">05</span><span class="name zh">山涧</span><span class="en-name">Mountain Stream</span></div>
+          <div class="scene"><span class="idx">06</span><span class="name zh">海岸浪声</span><span class="en-name">Shore Waves</span></div>
+          <div class="scene"><span class="idx">07</span><span class="name zh">篝火</span><span class="en-name">Campfire</span></div>
+          <div class="scene"><span class="idx">08</span><span class="name zh">火光壁炉</span><span class="en-name">Woodstove</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 倒计时 -->
+  <section>
+    <div class="wrap section split reverse">
+      <div>
+        <p class="kicker"><span class="zh">倒计时</span><span class="en">Countdown</span></p>
+        <h2>
+          <span class="zh">泡茶四分钟，也该有个圆圈</span>
+          <span class="en">Four minutes of tea deserves a ring</span>
+        </h2>
+        <p>
+          <span class="zh">常用时长存成一键圆圈：小睡 20、泡茶 4、专注 25、敷面膜 15、出门前 15、洗衣服 86、煲汤 45。中途可以加减五分钟，按早了还有几秒撤销。倒计时不会写进闹钟列表。</span>
+          <span class="en">Save the durations you actually use. Add or remove five minutes mid-run, and undo if you end it too early. Countdowns never enter your alarm list.</span>
+        </p>
+      </div>
+      <div class="shot">
+        <img src="./assets/screens/03-countdown.png" width="1320" height="2868" alt="Mosolis 倒计时运行页：进度环与剩余时间">
+      </div>
+    </div>
+  </section>
+
+  <!-- 外观 -->
+  <section>
+    <div class="wrap section split">
+      <div class="shot">
+        <img src="./assets/screens/04-wake.png" width="1320" height="2868" alt="Mosolis 唤醒预览页：稍后提醒与停止">
+      </div>
+      <div>
+        <p class="kicker"><span class="zh">夜里与清晨</span><span class="en">Night and morning</span></p>
+        <h2>
+          <span class="zh">不刺眼，也不打分</span>
+          <span class="en">Easy on the eyes, free of scores</span>
+        </h2>
+        <p>
+          <span class="zh">四档外观：跟随系统、深色、纯黑、浅色。三套色温：苔绿、暖米、灰蓝。纯黑在 OLED 上不发光，睡前看着不刺眼。没有连续天数，没有徽章，没有打卡。</span>
+          <span class="en">Four appearances — System, Dark, Pure black, Light — and three colour temperatures. No streaks, no badges, no check-ins.</span>
+        </p>
+        <p>
+          <span class="zh">闹钟注册为 iOS 系统闹钟，App 关掉也会响。响铃界面、稍后提醒与停止由系统负责；离开那个界面，声音会停，这是 iOS 的规则。</span>
+          <span class="en">Alarms are registered with iOS, so they ring even when the app is closed. The alert screen, snooze and stop belong to the system; leaving that screen ends the ring.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 图集 -->
+  <section>
+    <div class="wrap section">
+      <p class="kicker"><span class="zh">界面</span><span class="en">Screens</span></p>
+      <h2><span class="zh">来自真实构建</span><span class="en">From the real build</span></h2>
+      <div class="gallery">
+        <figure>
+          <img src="./assets/screens/01-home.png" alt="首页">
+          <figcaption><span class="zh">下一次闹钟与倒计时</span><span class="en">Next alarm and countdown</span></figcaption>
+        </figure>
+        <figure>
+          <img src="./assets/screens/02-sounds.png" alt="声音选择">
+          <figcaption><span class="zh">八条声景，可试听</span><span class="en">Eight scenes, previewable</span></figcaption>
+        </figure>
+        <figure>
+          <img src="./assets/screens/03-countdown.png" alt="倒计时">
+          <figcaption><span class="zh">只有一个进度环</span><span class="en">One progress ring</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 定价 -->
+  <section id="pricing">
+    <div class="wrap section">
+      <p class="kicker"><span class="zh">价格</span><span class="en">Price</span></p>
+      <h2><span class="zh">免费七天，之后一次买断</span><span class="en">Seven days free, then pay once</span></h2>
+      <div class="price-grid">
+        <div class="price-box">
+          <p class="meta"><span class="zh">七天试用</span><span class="en">Seven-day trial</span></p>
+          <p class="amount">US$0</p>
+          <p><span class="zh">全部功能开放：所有外观、所有声景、所有闹钟。</span><span class="en">Everything open: every appearance, every scene, every alarm.</span></p>
+        </div>
+        <div class="price-box">
+          <p class="meta"><span class="zh">之后</span><span class="en">Then</span></p>
+          <p class="amount">US$4.99</p>
+          <p><span class="zh">一次买断，永久使用。价格以 App Store 本地显示为准。</span><span class="en">One-time purchase, yours for good. Local price shown on the App Store.</span></p>
+          <ul>
+            <li><span class="zh">不订阅，不自动续费</span><span class="en">No subscription, no auto-renewal</span></li>
+            <li><span class="zh">没有广告，没有后续加价</span><span class="en">No ads, no later upsell</span></li>
+            <li><span class="zh">换设备可用「恢复购买」</span><span class="en">Restore Purchases on a new device</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 隐私 -->
+  <section>
+    <div class="wrap section split reverse">
+      <div>
+        <p class="kicker"><span class="zh">隐私</span><span class="en">Privacy</span></p>
+        <h2><span class="zh">不收集，也不需要账号</span><span class="en">No data, no account</span></h2>
+        <p>
+          <span class="zh">没有登录，没有统计 SDK，没有广告 SDK。核心功能不联网，闹钟数据只存在这台设备上。购买与恢复由 Apple 处理，我们不接触你的支付信息。</span>
+          <span class="en">No sign-in, no analytics SDK, no ad SDK. Core features work without a network, and your alarms stay on this device. Purchases are handled by Apple; we never see your payment details.</span>
+        </p>
+      </div>
+      <div>
+        <details>
+          <summary><span class="zh">闹钟真的会响吗</span><span class="en">Will the alarm really ring</span></summary>
+          <p><span class="zh">会。每条闹钟都注册为 iOS 系统闹钟，App 退到后台或被关闭后仍由系统负责响铃。若在系统设置里撤销了闹钟权限，重新打开 App 即可重新注册。</span>
+          <span class="en">Yes. Each alarm is registered as a system alarm with iOS, so it rings after the app is closed. If alarm permission is revoked, open the app again to re-register.</span></p>
+        </details>
+        <details>
+          <summary><span class="zh">能换成系统铃声或单独设置震动吗</span><span class="en">System ringtones or separate vibration</span></summary>
+          <p><span class="zh">iOS 不允许第三方闹钟使用系统铃声，也没有开放单独的震动接口。选择「无声音」时，是否震动由系统的声音与触感设置决定。</span>
+          <span class="en">iOS does not allow third-party alarm apps to use system ringtones, and exposes no separate vibration API. With No sound selected, vibration follows your system settings.</span></p>
+        </details>
+        <details>
+          <summary><span class="zh">重装 App 后试用怎么算</span><span class="en">Reinstalling and the trial</span></summary>
+          <p><span class="zh">试用计时保存在本机，重装后会重新计算。已购买的用户在设置页点「恢复购买」，用同一个 Apple ID 即可恢复。</span>
+          <span class="en">The trial timer is stored on the device and starts again after reinstalling. If you already purchased, tap Restore Purchases in Settings with the same Apple ID.</span></p>
+        </details>
+        <details>
+          <summary><span class="zh">支持哪些设备</span><span class="en">Which devices are supported</span></summary>
+          <p><span class="zh">iOS 26 及以上，iPhone 11 及更新机型。闹钟依赖系统的 AlarmKit，旧系统无法运行。</span>
+          <span class="en">iOS 26 or later on iPhone 11 and newer. Alarms rely on AlarmKit, which older systems do not provide.</span></p>
+        </details>
+        <details>
+          <summary><span class="zh">有安卓版吗</span><span class="en">Is there an Android version</span></summary>
+          <p><span class="zh">目前只有 iOS。闹钟依赖系统能力，安卓需要另做一套实现，暂时没有排期。</span>
+          <span class="en">iOS only for now. The alarm relies on system APIs; Android would need a separate implementation.</span></p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="wordmark" style="margin:0 0 8px">mosolis</div>
+      <div><span class="zh">晨苔 · 安静的自然声闹钟</span><span class="en">A quiet nature alarm</span></div>
+      <div style="margin-top:6px"><span class="rule">苔在下面，光在上面。</span></div>
+    </div>
+    <div class="foot-links">
+      <a href="https://apps.apple.com/app/id6839210146" target="_blank" rel="noopener">App Store</a>
+      <a href="https://keepallsimple.github.io/pubsites/mosolis/support.html">支持 / Support</a>
+      <a href="https://keepallsimple.github.io/pubsites/mosolis/privacy.html">隐私 / Privacy</a>
+      <a href="mailto:truebraveheart@gmail.com">truebraveheart@gmail.com</a>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:32px">© 2026 Mosolis · <span class="zh">iOS 26 及以上</span><span class="en">iOS 26 or later</span></div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var button = document.getElementById('langToggle');
+
+    function apply(lang) {
+      root.setAttribute('data-lang', lang);
+      root.setAttribute('lang', lang === 'zh' ? 'zh-Hans' : 'en');
+      button.textContent = lang === 'zh' ? 'EN' : '中文';
+      button.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+    }
+
+    button.addEventListener('click', function () {
+      apply(root.getAttribute('data-lang') === 'zh' ? 'en' : 'zh');
+    });
+
+    apply('zh');
+  })();
+</script>
+
 </body>
 </html>
