@@ -723,11 +723,27 @@
     var root = document.documentElement;
     var button = document.getElementById('langToggle');
 
+    // App Store Connect → App Analytics → Acquisition → Campaign Links 里的 Provider ID（纯数字）。
+    // 填入后，页面上的三个 App Store 按钮会自动带上 pt / ct / mt 参数；留空时保持普通商店链接。
+    var PROVIDER_ID = '';
+
+    function updateStoreLinks(lang) {
+      var links = document.querySelectorAll('a[href^="https://apps.apple.com/"]');
+      if (!PROVIDER_ID) return;
+      var ct = 'landing_' + (lang === 'en' ? 'en' : 'zh');
+      var href = 'https://apps.apple.com/app/apple-store/id6839210146'
+        + '?pt=' + encodeURIComponent(PROVIDER_ID)
+        + '&ct=' + ct
+        + '&mt=8';
+      for (var i = 0; i < links.length; i++) links[i].href = href;
+    }
+
     function apply(lang) {
       root.setAttribute('data-lang', lang);
       root.setAttribute('lang', lang === 'zh' ? 'zh-Hans' : 'en');
       button.textContent = lang === 'zh' ? 'EN' : '中文';
       button.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+      updateStoreLinks(lang);
     }
 
     button.addEventListener('click', function () {
