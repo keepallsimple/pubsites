@@ -92,6 +92,27 @@ p { margin: 0 0 14px; }
 
 .cards { display: grid; gap: 12px; margin-top: 22px; }
 
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.gallery figure { margin: 0; }
+
+.gallery img {
+  width: 100%;
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+}
+
+.gallery figcaption {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
 .card {
   display: block;
   padding: 18px 20px;
@@ -127,4 +148,5 @@ footer {
   .wrap { padding-top: 32px; }
   .brand { font-size: 28px; }
   h1 { font-size: 26px; }
+  .gallery { grid-template-columns: 1fr; }
 }
