@@ -1,0 +1,130 @@
+:root {
+  color-scheme: light dark;
+  --paper: #f1eee5;
+  --card: #fbf9f4;
+  --ink: #17231d;
+  --muted: #5d6a60;
+  --rule: #d9ddd2;
+  --moss: #344638;
+  --earth: #a58d70;
+  --lead: #e5e9df;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #17231d;
+    --card: #1f2c24;
+    --ink: #f1eee5;
+    --muted: #c8cec1;
+    --rule: #34463a;
+    --moss: #a8b79a;
+    --earth: #c6ae90;
+    --lead: #24332a;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans GB",
+    "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--moss); text-underline-offset: 3px; }
+
+.wrap {
+  width: min(100% - 40px, 720px);
+  margin: 0 auto;
+  padding: 48px 0 80px;
+}
+
+header {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.brand,
+h1,
+h2,
+.card strong {
+  color: var(--moss);
+  font-family: "Songti SC", "Songti TC", Georgia, serif;
+  font-weight: 400;
+}
+
+.brand { margin: 0 0 8px; font-size: 32px; letter-spacing: 0.06em; }
+
+h1 { margin: 0 0 8px; font-size: 30px; }
+
+h2 { margin: 36px 0 10px; font-size: 21px; }
+
+h3 { margin: 22px 0 5px; font-size: 16px; font-weight: 600; }
+
+p { margin: 0 0 14px; }
+
+.meta, .muted, footer { color: var(--muted); }
+
+.meta { font-size: 13px; }
+
+.lead {
+  margin: 0 0 28px;
+  padding: 16px 18px;
+  border-left: 3px solid var(--earth);
+  background: var(--lead);
+}
+
+.language-nav, .site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.language-nav { margin-top: 16px; font-size: 14px; }
+
+.language-section { padding-top: 8px; scroll-margin-top: 16px; }
+
+.cards { display: grid; gap: 12px; margin-top: 22px; }
+
+.card {
+  display: block;
+  padding: 18px 20px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.card:hover, .card:focus-visible { border-color: var(--earth); }
+
+.card strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 19px;
+}
+
+.card span { color: var(--muted); font-size: 14px; }
+
+footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  font-size: 13px;
+}
+
+.site-nav { margin-top: 12px; }
+
+.site-nav a { color: var(--muted); }
+
+@media (max-width: 520px) {
+  .wrap { padding-top: 32px; }
+  .brand { font-size: 28px; }
+  h1 { font-size: 26px; }
+}
